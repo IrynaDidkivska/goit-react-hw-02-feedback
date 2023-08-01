@@ -1,26 +1,18 @@
+import { BtnWrapper, Button } from './FeedbackOptions.styled';
 import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import { BtnWrapper, Button, Title } from './FeedbackOptions.styled';
 
-export class FeedbackOptions extends Component {
-  handleValue = event => {
-    this.props.onLeaveFeedback(event);
-  };
-  render() {
-    return (
-      <div>
-        <BtnWrapper>
-          <Button name="good" onClick={this.handleValue}>
-            good
-          </Button>
-          <Button name="neutral" onClick={this.handleValue}>
-            neutral
-          </Button>
-          <Button name="bad" onClick={this.handleValue}>
-            bad
-          </Button>
-        </BtnWrapper>
-      </div>
-    );
-  }
-}
+export const FeedbackOptions = ({ options, onLeaveFeedback }) => {
+  return (
+    <BtnWrapper>
+      {options.map((key, index) => (
+        <Button key={index} onClick={() => onLeaveFeedback(key)}>
+          {key}
+        </Button>
+      ))}
+    </BtnWrapper>
+  );
+};
+
+FeedbackOptions.propTypes = {
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
